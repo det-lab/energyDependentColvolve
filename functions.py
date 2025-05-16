@@ -1,6 +1,7 @@
 import numpy as np
+from inspect import signature
 
-def convolution_2d_changing_kernel(signal, kernel, axis, argNum):
+def convolution_2d_changing_kernel(signal, kernel, axis):
     """
     Performs a convolution of the signal and kernel with ability to perform 
     non-changing and changing kernel convolutions.
@@ -24,6 +25,20 @@ def convolution_2d_changing_kernel(signal, kernel, axis, argNum):
         array
 
     """
+
+    axisDiff = np.diff(axis)
+
+    if np.allclose(axisDiff, axisDiff[0], atol=1e-8) != True:
+        raise RuntimeError("Axis needs to be uniform")
+
+    temp = signature(kernel)
+    params = temp.parameters
+
+    argNum = len(params)
+
+    if argNum > 2:
+        raise RuntimeError("Kernel function has to many arguments")
+
     #checks if fucntion args are 2
     if argNum == 2:
         kernelMatrix = []

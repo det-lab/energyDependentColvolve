@@ -9,7 +9,7 @@ mathmaticaSol = fn.mathamaticaSolution(x) #Mathematica's analytical solution
 
 numpySol = np.convolve(fn.sawWave1(x), fn.squareWave1(x), mode="same") * np.diff(x)[0] #numpys standard convolve
 
-convolvedSigKernArray = fn.convolution_2d_changing_kernel(fn.sawWave1(x), fn.squareWave1, x, 1) #calls custom convolve func
+convolvedSigKernArray = fn.convolution_2d_changing_kernel(fn.sawWave1(x), fn.squareWave1, x) #calls custom convolve func
 
 #creating plot for all three generated arrays vs x axis
 plt.plot(x,convolvedSigKernArray,linewidth=5, color = "black") 

@@ -7,7 +7,7 @@ x = np.linspace(-20,20,1000)
 
 mathSol = fn.mathematicaSol(x)
 
-convolvedSigKernArray = fn.convolution_2d_changing_kernel(fn.squareWave2(x), fn.sinWave, x,1)
+convolvedSigKernArray = fn.convolution_2d_changing_kernel(fn.squareWave2(x), fn.sinWave, x)
 
 numpySol = np.convolve(fn.squareWave2(x), fn.sinWave(x), mode="same") * np.diff(x)[0] #note that using numpys convolve, must be normalized by dx
 
