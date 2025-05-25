@@ -5,7 +5,7 @@ import functions as fn
 #### Square and Sin wave plot ####
 x = np.linspace(-20,20,1000)
 
-mathSol = fn.mathematicaSol(x)
+mathSol = fn.mathematica_Square_Sin(x)
 
 convolvedSigKernArray = fn.convolution_2d_changing_kernel(fn.squareWave2(x), fn.sinWave, x)
 

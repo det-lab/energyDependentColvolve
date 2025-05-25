@@ -1,11 +1,11 @@
 import numpy as np
 from inspect import signature
+from numba import jit
 
 def convolution_2d_changing_kernel(signal, kernel, axis):
     """
     Performs a convolution of the signal and kernel with ability to perform 
     non-changing and changing kernel convolutions.
-    Using with argNum == 2, ensure that the function is centered at the axis value of interest.
     Such as a gaussian centered at x = 2 with sigma = 4 then the function discribes a new gaussian centered at x = 4 with sigma = 8.
     Read the kernFunc(xArray, xVal) for an example of this.
     
@@ -13,29 +13,30 @@ def convolution_2d_changing_kernel(signal, kernel, axis):
         signal (array): Any array.
         kernel (function): Any function that is used to create an array from an axis. Function can have one or two args, but do not include in args.
         axis (array): The axis array that is being used between signal and the kernel.
-        argNum (int): Number of arguments in the kernel function. One arg for non-changing convolve, and two for changing convolve.
+        
 
     Returns:
         array: Convolution of signal and kernel
 
     Example:
-        >>> convolution_2d_changing_kernel([0,0,2,2,0,0], 2 * axis, [1,2,3,4,5,6], 1)
+        >>> convolution_2d_changing_kernel([0,0,2,2,0,0], 2 * axis, [1,2,3,4,5,6])
         array
-        >>> convolution_2d_chagning_kernel([0,0,2,2,0,0], 2 * axis / center, [1,2,3,4,5,6], 2)
+        >>> convolution_2d_chagning_kernel([0,0,2,2,0,0], 2 * axis / center, [1,2,3,4,5,6])
         array
 
     """
 
     axisDiff = np.diff(axis)
 
+    #Ensures that the axis is uniformly spaced
     if np.allclose(axisDiff, axisDiff[0], atol=1e-8) != True:
-        raise RuntimeError("Axis needs to be uniform")
+        raise RuntimeError("Axis needs to be uniform") 
 
     temp = signature(kernel)
     params = temp.parameters
 
     argNum = len(params)
-
+    #Ensures that the kernel function arguments are not greater than 2
     if argNum > 2:
         raise RuntimeError("Kernel function has to many arguments")
 
@@ -71,7 +72,9 @@ def convolution_2d_changing_kernel(signal, kernel, axis):
     return output
 
 
-def mathmaticaSolution(x): ##### Double gaussian ######
+
+@jit
+def mathmatica_double_gauss(x): ##### Double gaussian ######
     """
     Mathematica's integral solution to the two functions below, sigFunc() and kernFunc().
     This is an analytical solution.
@@ -89,6 +92,7 @@ def mathmaticaSolution(x): ##### Double gaussian ######
 
     return numerator / denominator
 
+@jit
 def sigFunc(xAxis):
     """
     Creates a signal array from the axis to be used in tests.
@@ -100,6 +104,7 @@ def sigFunc(xAxis):
     """
     return np.exp(-1 * (xAxis**2)/18)
 
+@jit
 def kernFunc(xArray, xVal):
     """
     Creates a gaussian array with xVal being in the sigma diveation to discribe a widening gaussian as x increases
@@ -141,7 +146,7 @@ def squareWave1(x): #Square wave for second plot
                         [x < 0, (0 <= x) & (x < 2), x >= 2],
                         [0, 2, 0])
     
-def mathamaticaSolution(x): ##### Saw and Square wave convolution with non varying kernel #####
+def mathamatica_Saw_Square(x): ##### Saw and Square wave convolution with non varying kernel #####
     """
     Creates an array of Mathematica's peicewise solution to a saw and square wave convolution.
     This function is an analytical solution.
@@ -187,7 +192,7 @@ def sinWave(x):
                         [x < 0, (0 <= x) & (x < np.pi), x >= np.pi],
                         [0, lambda x: np.sin(x), 0])
 
-def mathematicaSol(x):
+def mathematica_Square_Sin(x):
     """
     Creates a peicewise function of Mathematica's solution to a square and sin wave convolution.
     This function is an analytical solution.

@@ -5,7 +5,7 @@ import functions as fn
 ##### Saw and Square Case #####
 x = np.linspace (-20,20,10000)
 
-mathmaticaSol = fn.mathamaticaSolution(x) #Mathematica's analytical solution
+mathmaticaSol = fn.mathamatica_Saw_Square(x) #Mathematica's analytical solution
 
 numpySol = np.convolve(fn.sawWave1(x), fn.squareWave1(x), mode="same") * np.diff(x)[0] #numpys standard convolve
 

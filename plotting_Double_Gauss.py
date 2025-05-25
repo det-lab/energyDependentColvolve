@@ -7,7 +7,7 @@ x = np.linspace(-100, 100, 2000)
 
 convolvedSigKernArray = fn.convolution_2d_changing_kernel(fn.sigFunc(x),fn.kernFunc,x)
 
-mathmaticaSolutionArray = fn.mathmaticaSolution(x)
+mathmaticaSolutionArray = fn.mathmatica_double_gauss(x)
 
 test = fn.varGauss(max(fn.sArray(x))*1/np.diff(x)[0])
 
