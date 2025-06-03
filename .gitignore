@@ -1,0 +1,41 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual environment
+.venv/
+env/
+venv/
+
+# VS Code settings
+.vscode/
+
+# PyInstaller
+*.spec
+build/
+dist/
+
+# Test/coverage artifacts
+htmlcov/
+.coverage
+coverage.xml
+.cache
+nosetests.xml
+pytest_cache/
+
+# MyPy
+.mypy_cache/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+#pytest cache
+*.pytest_cache/
+
+#egg-info
+/energy_dependent_convolve.egg-info

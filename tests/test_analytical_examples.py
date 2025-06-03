@@ -1,6 +1,5 @@
 import pytest as pt 
 import numpy as np
-import functions as fn 
 import plotting_Double_Gauss as dg
 import plotting_Saw_Square_Static as ss
 import plotting_Square_SinWave as sqSin

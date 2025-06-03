@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import functions as fn
+import energyDependentColvolve.functions.convolv as fn
 
 ##### Saw and Square Case #####
 x = np.linspace (-20,20,10000)
@@ -20,9 +20,7 @@ def plotting():
     plt.xlabel("x")
     plt.ylabel("f(x)")
     plt.xlim(-20,20)
-
     plt.grid(True)
     plt.show()
 
-
-print(max(abs(convolvedSigKernArray-mathmaticaSol)))
+plotting()
