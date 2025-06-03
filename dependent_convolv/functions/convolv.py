@@ -1,6 +1,5 @@
 import numpy as np
 from inspect import signature
-from numba import jit
 
 def convolution_2d_changing_kernel(signal, kernel, axis):
     """
@@ -71,9 +70,6 @@ def convolution_2d_changing_kernel(signal, kernel, axis):
 
     return output
 
-
-
-@jit
 def mathmatica_double_gauss(x): ##### Double gaussian ######
     """
     Mathematica's integral solution to the two functions below, sigFunc() and kernFunc().
@@ -92,7 +88,7 @@ def mathmatica_double_gauss(x): ##### Double gaussian ######
 
     return numerator / denominator
 
-@jit
+
 def sigFunc(xAxis):
     """
     Creates a signal array from the axis to be used in tests.
@@ -104,7 +100,7 @@ def sigFunc(xAxis):
     """
     return np.exp(-1 * (xAxis**2)/18)
 
-@jit
+
 def kernFunc(xArray, xVal):
     """
     Creates a gaussian array with xVal being in the sigma diveation to discribe a widening gaussian as x increases
@@ -120,6 +116,7 @@ def kernFunc(xArray, xVal):
     """
     return np.exp(-1*(xArray)**2 / (2*(np.sqrt(xVal**2/5 + 1))))
 
+
 def sawWave1(x): #Saw wave for second plot
     """
     Creates a peicewise function of a saw wave.
@@ -133,6 +130,7 @@ def sawWave1(x): #Saw wave for second plot
                         [x < 0, (0 <= x) & (x < 2), x >= 2],
                         [0, lambda x: x, 0])
 
+
 def squareWave1(x): #Square wave for second plot
     """
     Creates a peicewise function of a square wave.
@@ -145,7 +143,8 @@ def squareWave1(x): #Square wave for second plot
     return np.piecewise(x, 
                         [x < 0, (0 <= x) & (x < 2), x >= 2],
                         [0, 2, 0])
-    
+
+
 def mathamatica_Saw_Square(x): ##### Saw and Square wave convolution with non varying kernel #####
     """
     Creates an array of Mathematica's peicewise solution to a saw and square wave convolution.
@@ -166,6 +165,7 @@ def mathamatica_Saw_Square(x): ##### Saw and Square wave convolution with non va
             output[i] = (0)
     return output
 
+
 def squareWave2(x):
     """
     Creates a peicewise function of a square wave.
@@ -179,6 +179,7 @@ def squareWave2(x):
                         [x < 0, (0 <= x) & (x < 2), x >= 2],
                         [0, 2, 0])
 
+
 def sinWave(x):
     """
     Creates a peicewise function of a single period sin wave.
@@ -191,6 +192,7 @@ def sinWave(x):
     return np.piecewise(x, 
                         [x < 0, (0 <= x) & (x < np.pi), x >= np.pi],
                         [0, lambda x: np.sin(x), 0])
+
 
 def mathematica_Square_Sin(x):
     """

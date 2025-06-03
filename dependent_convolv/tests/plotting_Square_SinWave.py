@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import functions as fn
+import dependent_convolv.functions.convolv as fn
 
 #### Square and Sin wave plot ####
 x = np.linspace(-20,20,1000)
@@ -17,3 +17,4 @@ def plotting():
     plt.plot(x, numpySol, linewidth = 3, color = "blue")
     plt.plot(x, mathSol,color = "red")
     plt.show()
+

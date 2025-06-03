@@ -1,6 +1,7 @@
 import numpy as np
-import energyDependentColvolve.functions.convolv as fn
+import dependent_convolv.functions.convolv as fn
 import matplotlib.pyplot as plt
+
 #### Double Gaussian Plot ####
 x = np.linspace(-100, 100, 2000)
 
@@ -27,5 +28,3 @@ def plotting():
 
     plt.grid(True)
     plt.show()
-
-plotting()

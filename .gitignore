@@ -38,4 +38,4 @@ Thumbs.db
 *.pytest_cache/
 
 #egg-info
-/energy_dependent_convolve.egg-info
+energy_dependent_colvolve.egg-info

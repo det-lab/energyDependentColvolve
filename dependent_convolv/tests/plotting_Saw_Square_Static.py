@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import energyDependentColvolve.functions.convolv as fn
+import dependent_convolv.functions.convolv as fn
 
 ##### Saw and Square Case #####
 x = np.linspace (-20,20,10000)
@@ -22,5 +22,3 @@ def plotting():
     plt.xlim(-20,20)
     plt.grid(True)
     plt.show()
-
-plotting()

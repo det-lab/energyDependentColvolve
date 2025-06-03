@@ -1,8 +1,8 @@
 import pytest as pt 
 import numpy as np
-import plotting_Double_Gauss as dg
-import plotting_Saw_Square_Static as ss
-import plotting_Square_SinWave as sqSin
+from . import plotting_Double_Gauss as dg
+from . import plotting_Saw_Square_Static as ss
+from . import plotting_Square_SinWave as sqSin
 
 class analytical_error_tests:
     
