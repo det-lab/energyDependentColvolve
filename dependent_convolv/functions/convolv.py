@@ -1,5 +1,6 @@
 import numpy as np
 from inspect import signature
+from scipy.integrate import quad
 
 def convolution_2d_changing_kernel(signal, kernel, axis):
     """
@@ -37,22 +38,25 @@ def convolution_2d_changing_kernel(signal, kernel, axis):
     argNum = len(params)
     #Ensures that the kernel function arguments are not greater than 2
     if argNum > 2:
-        raise RuntimeError("Kernel function has to many arguments")
+        raise RuntimeError("Kernel function has too many arguments")
 
     #checks if fucntion args are 2
     if argNum == 2:
         kernelMatrix = []
         # for loop is creating a 2D matrix to be used in the convolution, the kernel remains constant but is shifted by x
         # note the second argument being used to modify the 2D matrix where each row in the matrix now has a diffrent kernel.
-        for x in axis: 
-            kernelMatrix.append(kernel(x-axis,x))#
+        
+        for x in axis:
+
+            kernelMatrix.append(np.flip(kernel(x+axis,x)))#
         kernelMatrix = np.array(kernelMatrix)
     #checks if fucntion args are 1
     if argNum == 1:
         kernelMatrix = []
         # for loop is creating a 2D matrix to be used in the convolution, the kernel remains constant but is shifted by x
         for x in axis:
-            kernelMatrix.append(kernel(x-axis)) 
+
+            kernelMatrix.append(np.flip(kernel(x+axis))) 
         kernelMatrix = np.array(kernelMatrix)
     
      # Initialize the output array
@@ -108,13 +112,20 @@ def kernFunc(xArray, xVal):
     This is critical to having a varying convolution when used with the convolve function.
     The convolution function handles centering about an axis value and is not needed in this function.
     Parameters:
-        xArray (array): Array axis.
+        xArray (array): Array like of the functions axis.
         xVal (float): Int that discribes a modification to the function based on the centering of the function.
 
     Return:
         Array: 
     """
-    return np.exp(-1*(xArray)**2 / (2*(np.sqrt(xVal**2/5 + 1))))
+
+    func = np.exp(-1*(xArray)**2 / (2*(np.sqrt(xVal**2/5 + 1))))
+    dE = np.diff(xArray)[0]
+    norm = 0
+    for val in func:
+        norm += val * dE
+
+    return func / norm
 
 
 def sawWave1(x): #Saw wave for second plot
@@ -219,6 +230,16 @@ def mathematica_Square_Sin(x):
         ]
     )
 
+def sigFuncPositiveOffset(xAxis):
+    """
+    Creates a signal array from the axis to be used in tests. Where the function is offset by 10
+    Parameters:
+        xAxis (array): Array axis
+
+    Return:
+        Array: 
+    """
+    return np.exp(-1 * ((xAxis-10)**2)/18)
 
 ### VarConvolve Github ###
 #Not super optimal for what we are attempting to achive,
